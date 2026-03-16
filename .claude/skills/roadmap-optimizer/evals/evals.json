@@ -1,0 +1,23 @@
+{
+  "skill_name": "roadmap-optimizer",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I have a SAS-to-Databricks migration project with 29,551 jobs stored as individual JSON files in the 'sas_jobs' directory. We have 2 teams of 3 people each working on this over the next 5 years. I need to generate an optimized migration roadmap that considers our three approaches: Build-to-legacy (fast but creates tech debt), Bridge-to-model (balanced), and Strategic (clean target architecture). Please analyze the jobs, create migration packages, and give me a comprehensive Excel workbook with three scenarios - fast exit, balanced, and target-first approaches. The Excel should have executive summary, Gantt chart, and resource utilization.",
+      "expected_output": "Complete Excel workbook (migration_roadmap_report.xlsx) with: Executive Summary sheet with KPIs and recommendations, Scenario Comparison sheet with charts, Schedule sheets for each scenario with color-coded modes, Gantt timeline visualization, Resource utilization analysis, and Package details.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "Our executive team is asking for a comparison of different migration strategies. We have our SAS job data ready and want to see how a 'Fast Exit' scenario (prioritizing speed) compares to a 'Target First' scenario (prioritizing strategic alignment) in terms of timeline, technical debt, and resource utilization. Please generate both scenarios and create a beautiful Excel report that I can share with stakeholders.",
+      "expected_output": "Excel workbook with scenario comparison, including side-by-side metrics, stacked bar charts for mode distribution, and executive summary highlighting trade-offs between speed and strategic alignment.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "We need to understand what happens if we prioritize Strategic mode packages right from the start. With our replica-first approach, Strategic can begin immediately. Generate an optimization that maximizes Strategic mode adoption from month 1, and show me how this affects our timeline and resource utilization in an Excel report.",
+      "expected_output": "Excel workbook showing strategic-heavy scenario with immediate Strategic mode adoption, timeline analysis, resource utilization patterns, and comparison with other approaches.",
+      "files": []
+    }
+  ]
+}

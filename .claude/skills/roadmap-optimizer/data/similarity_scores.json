@@ -1,0 +1,221 @@
+{
+  "MAE": {
+    "source_file": "C:\\Users\\joaomaia\\OneDrive - Deloitte (O365D)\\Desktop\\RoadmapSkill\\MAE_Similarity_Score.xlsx",
+    "sheets": [
+      {
+        "name": "Ageas - Similarity Mapping",
+        "shape": [
+          57,
+          7
+        ],
+        "columns": [
+          "Ageas / MAE_MODEL_19 \u2192 Unified Model \u2502 Mapping & Similarity Pack",
+          "Unnamed: 1",
+          "Unnamed: 2",
+          "Unnamed: 3",
+          "Unnamed: 4",
+          "Unnamed: 5",
+          "Unnamed: 6"
+        ],
+        "score_columns": [
+          "Ageas / MAE_MODEL_19 \u2192 Unified Model \u2502 Mapping & Similarity Pack"
+        ],
+        "sample_data": [
+          {
+            "Ageas / MAE_MODEL_19 \u2192 Unified Model \u2502 Mapping & Similarity Pack": "Integrated mapping of Ageas / MAE_MODEL_19 model concepts to Ageas's Unified Data Model   \u2502   Generated: 11 March 2026",
+            "Unnamed: 1": NaN,
+            "Unnamed: 2": NaN,
+            "Unnamed: 3": NaN,
+            "Unnamed: 4": NaN,
+            "Unnamed: 5": NaN,
+            "Unnamed: 6": NaN
+          },
+          {
+            "Ageas / MAE_MODEL_19 \u2192 Unified Model \u2502 Mapping & Similarity Pack": "SIMILARITY SCORE OVERVIEW",
+            "Unnamed: 1": NaN,
+            "Unnamed: 2": NaN,
+            "Unnamed: 3": NaN,
+            "Unnamed: 4": NaN,
+            "Unnamed: 5": NaN,
+            "Unnamed: 6": NaN
+          },
+          {
+            "Ageas / MAE_MODEL_19 \u2192 Unified Model \u2502 Mapping & Similarity Pack": "Dimension",
+            "Unnamed: 1": "Weight",
+            "Unnamed: 2": "Score (0-100)",
+            "Unnamed: 3": "Weighted Score",
+            "Unnamed: 4": "Rationale",
+            "Unnamed: 5": NaN,
+            "Unnamed: 6": NaN
+          },
+          {
+            "Ageas / MAE_MODEL_19 \u2192 Unified Model \u2502 Mapping & Similarity Pack": "Conceptual Overlap",
+            "Unnamed: 1": 0.3,
+            "Unnamed: 2": 85,
+            "Unnamed: 3": 25.5,
+            "Unnamed: 4": "The MAE model covers the full entity/party domain (person and organisation) including demographics, classification, contact channels, location and GDPR consent \u2014 all of which have direct equivalents in the Industry Model's CID domain. No major concept is absent.",
+            "Unnamed: 5": NaN,
+            "Unnamed: 6": NaN
+          },
+          {
+            "Ageas / MAE_MODEL_19 \u2192 Unified Model \u2502 Mapping & Similarity Pack": "Structural Similarity",
+            "Unnamed: 1": 0.25,
+            "Unnamed: 2": 72,
+            "Unnamed: 3": 18,
+            "Unnamed: 4": "The client uses a FACT+DIM+REL paradigm with SCD2-style effective dating (Dttm_DWValidFrom/To, Dttm_SrcSysValidFrom/To); the Industry Model uses normalised tables with effective dating. The primary gap is that the client stores person and organisation attributes in a single FACT table (DW_D_F_PRD_ENTITY) whereas the Industry Model separates cid_ent_person and cid_ent_org extensions.",
+            "Unnamed: 5": NaN,
+            "Unnamed: 6": NaN
+          }
+        ]
+      }
+    ],
+    "summary": {},
+    "sheet_names": [
+      "Ageas - Similarity Mapping"
+    ]
+  },
+  "MAOC": {
+    "source_file": "C:\\Users\\joaomaia\\OneDrive - Deloitte (O365D)\\Desktop\\RoadmapSkill\\MAOC_Similarity_Score.xlsm",
+    "sheets": [
+      {
+        "name": "MAOC - Similarity Mapping",
+        "shape": [
+          90,
+          7
+        ],
+        "columns": [
+          "Unnamed: 0",
+          "Unnamed: 1",
+          "Unnamed: 2",
+          "Unnamed: 3",
+          "Unnamed: 4",
+          "Unnamed: 5",
+          "Unnamed: 6"
+        ],
+        "sample_data": [
+          {
+            "Unnamed: 0": NaN,
+            "Unnamed: 1": NaN,
+            "Unnamed: 2": NaN,
+            "Unnamed: 3": NaN,
+            "Unnamed: 4": NaN,
+            "Unnamed: 5": NaN,
+            "Unnamed: 6": NaN
+          },
+          {
+            "Unnamed: 0": NaN,
+            "Unnamed: 1": NaN,
+            "Unnamed: 2": NaN,
+            "Unnamed: 3": NaN,
+            "Unnamed: 4": NaN,
+            "Unnamed: 5": NaN,
+            "Unnamed: 6": NaN
+          },
+          {
+            "Unnamed: 0": NaN,
+            "Unnamed: 1": NaN,
+            "Unnamed: 2": NaN,
+            "Unnamed: 3": NaN,
+            "Unnamed: 4": NaN,
+            "Unnamed: 5": NaN,
+            "Unnamed: 6": NaN
+          },
+          {
+            "Unnamed: 0": NaN,
+            "Unnamed: 1": NaN,
+            "Unnamed: 2": NaN,
+            "Unnamed: 3": NaN,
+            "Unnamed: 4": NaN,
+            "Unnamed: 5": NaN,
+            "Unnamed: 6": NaN
+          },
+          {
+            "Unnamed: 0": NaN,
+            "Unnamed: 1": NaN,
+            "Unnamed: 2": NaN,
+            "Unnamed: 3": NaN,
+            "Unnamed: 4": NaN,
+            "Unnamed: 5": NaN,
+            "Unnamed: 6": NaN
+          }
+        ]
+      }
+    ],
+    "summary": {},
+    "sheet_names": [
+      "MAOC - Similarity Mapping"
+    ]
+  },
+  "UNO": {
+    "source_file": "C:\\Users\\joaomaia\\OneDrive - Deloitte (O365D)\\Desktop\\RoadmapSkill\\UNO_Similarity_Score.xlsm",
+    "sheets": [
+      {
+        "name": "UNO - Similarity Mapping",
+        "shape": [
+          71,
+          7
+        ],
+        "columns": [
+          "Unnamed: 0",
+          "Unnamed: 1",
+          "Unnamed: 2",
+          "Unnamed: 3",
+          "Unnamed: 4",
+          "Unnamed: 5",
+          "Unnamed: 6"
+        ],
+        "sample_data": [
+          {
+            "Unnamed: 0": NaN,
+            "Unnamed: 1": NaN,
+            "Unnamed: 2": NaN,
+            "Unnamed: 3": NaN,
+            "Unnamed: 4": NaN,
+            "Unnamed: 5": NaN,
+            "Unnamed: 6": NaN
+          },
+          {
+            "Unnamed: 0": NaN,
+            "Unnamed: 1": NaN,
+            "Unnamed: 2": NaN,
+            "Unnamed: 3": NaN,
+            "Unnamed: 4": NaN,
+            "Unnamed: 5": NaN,
+            "Unnamed: 6": NaN
+          },
+          {
+            "Unnamed: 0": NaN,
+            "Unnamed: 1": NaN,
+            "Unnamed: 2": NaN,
+            "Unnamed: 3": NaN,
+            "Unnamed: 4": NaN,
+            "Unnamed: 5": NaN,
+            "Unnamed: 6": NaN
+          },
+          {
+            "Unnamed: 0": NaN,
+            "Unnamed: 1": NaN,
+            "Unnamed: 2": NaN,
+            "Unnamed: 3": NaN,
+            "Unnamed: 4": NaN,
+            "Unnamed: 5": NaN,
+            "Unnamed: 6": NaN
+          },
+          {
+            "Unnamed: 0": NaN,
+            "Unnamed: 1": NaN,
+            "Unnamed: 2": NaN,
+            "Unnamed: 3": NaN,
+            "Unnamed: 4": NaN,
+            "Unnamed: 5": NaN,
+            "Unnamed: 6": NaN
+          }
+        ]
+      }
+    ],
+    "summary": {},
+    "sheet_names": [
+      "UNO - Similarity Mapping"
+    ]
+  }
+}

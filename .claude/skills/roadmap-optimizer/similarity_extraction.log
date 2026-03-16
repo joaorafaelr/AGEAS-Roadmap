@@ -1,0 +1,24 @@
+Processing MAE_Similarity_Score.xlsx...
+Processing MAOC_Similarity_Score.xlsm...
+Processing UNO_Similarity_Score.xlsm...
+
+Similarity scores extracted to: C:\Users\joaomaia\OneDrive - Deloitte (O365D)\Desktop\RoadmapSkill\roadmap-optimizer\data\similarity_scores.json
+
+============================================================
+SIMILARITY SCORES SUMMARY
+============================================================
+
+MAE:
+  Sheets: 1
+    - Ageas - Similarity Mapping: [57, 7]
+Traceback (most recent call last):
+  File "C:\Users\joaomaia\OneDrive - Deloitte (O365D)\Desktop\RoadmapSkill\roadmap-optimizer\scripts\extract_similarity_scores.py", line 131, in <module>
+    main()
+    ~~~~^^
+  File "C:\Users\joaomaia\OneDrive - Deloitte (O365D)\Desktop\RoadmapSkill\roadmap-optimizer\scripts\extract_similarity_scores.py", line 127, in main
+    print(f"      Score columns: {sheet['score_columns']}")
+    ~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Program Files\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+           ~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2192' in position 44: character maps to <undefined>
