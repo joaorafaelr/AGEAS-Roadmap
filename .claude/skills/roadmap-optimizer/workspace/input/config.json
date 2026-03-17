@@ -1,0 +1,82 @@
+{
+  "migration_horizon_months": 48,
+  "odl_completion_month": 0,
+  "team_capacity": 6,
+  "project_start_year": 2025,
+  "project_start_month": 1,
+  "working_days_month": 20,
+  "future_core_domains": ["risk_analytics", "financial_reporting", "regulatory_reporting"],
+  "concurrent_limits": {
+    "max_strategic_parallel": 2,
+    "max_total_parallel": 4
+  },
+  "domain_constraints": {
+    "customer_data": { "earliest_start": 0, "priority_weight": 1.0 },
+    "financial_reporting": { "earliest_start": 2, "priority_weight": 0.95 },
+    "risk_analytics": { "earliest_start": 3, "priority_weight": 0.9 },
+    "product_analytics": { "earliest_start": 6, "priority_weight": 0.85 },
+    "operational_reporting": { "earliest_start": 8, "priority_weight": 0.8 },
+    "regulatory_reporting": { "earliest_start": 4, "priority_weight": 0.9 },
+    "marketing_analytics": { "earliest_start": 12, "priority_weight": 0.7 },
+    "legacy_batch": { "earliest_start": 18, "priority_weight": 0.6 }
+  },
+  "migration_modes": {
+    "strategic_rewrite": {
+      "description": "Complete rewrite using modern Databricks patterns",
+      "duration_multiplier": 1.4,
+      "tech_debt_penalty": 0.0,
+      "base_hours": 600,
+      "cost_multiplier": 1.4,
+      "strategic_value": 1.0
+    },
+    "bridge_approach": {
+      "description": "Bridge solution with SAS-to-Python conversion",
+      "duration_multiplier": 1.0,
+      "tech_debt_penalty": 0.5,
+      "base_hours": 400,
+      "cost_multiplier": 1.0,
+      "strategic_value": 0.6
+    },
+    "lift_and_shift": {
+      "description": "Minimal migration with SAS compatibility layer",
+      "duration_multiplier": 0.7,
+      "tech_debt_penalty": 1.2,
+      "base_hours": 250,
+      "cost_multiplier": 0.7,
+      "strategic_value": 0.3
+    }
+  },
+  "role_rates": {
+    "solution_architect": 150,
+    "senior_developer": 120,
+    "developer": 100,
+    "qa_engineer": 95,
+    "business_analyst": 85,
+    "devops_engineer": 130
+  },
+  "fte_daily_rate": 1000,
+  "system_deadlines": {
+    "SAS_Platform": {
+      "decommission": "2028-12-31",
+      "migration_deadline": "2028-Q3",
+      "affected_domains": ["customer_data", "financial_reporting", "risk_analytics", "product_analytics", "operational_reporting", "regulatory_reporting", "marketing_analytics", "legacy_batch"]
+    }
+  },
+  "optimization_weights": {
+    "fast_exit": {
+      "minimize_duration": 0.6,
+      "maximize_strategic": 0.1,
+      "minimize_tech_debt": 0.3
+    },
+    "balanced": {
+      "minimize_duration": 0.3,
+      "maximize_strategic": 0.4,
+      "minimize_tech_debt": 0.3
+    },
+    "target_first": {
+      "minimize_duration": 0.2,
+      "maximize_strategic": 0.6,
+      "minimize_tech_debt": 0.2
+    }
+  }
+}

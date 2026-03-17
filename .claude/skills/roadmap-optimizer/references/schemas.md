@@ -18,8 +18,7 @@ Input schema for individual SAS job definitions:
     },
     "domain": {
       "type": "string",
-      "enum": ["customer", "product", "claims", "finance", "operations"],
-      "description": "Business domain this job belongs to"
+      "description": "Business domain this job belongs to (user-configurable, e.g., 'Claims', 'Policies', 'Entities', 'customer', 'finance')"
     },
     "steps": {
       "type": "array",

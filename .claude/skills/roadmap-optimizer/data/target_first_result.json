@@ -1,0 +1,45 @@
+{
+  "scenario_name": "Target-First",
+  "description": "Prioritize strategic alignment and risk reduction",
+  "total_duration_months": 48,
+  "resource_utilization": 0.6,
+  "risk_score": 0.3,
+  "schedule": [
+    {
+      "package_id": "Package_01",
+      "package_name": "Entities Foundation",
+      "start_month": 0,
+      "duration_months": 1900,
+      "end_month": 1900,
+      "effort_days": 22800,
+      "resources_required": 2
+    },
+    {
+      "package_id": "Package_02",
+      "package_name": "Entities Extensions",
+      "start_month": 1900,
+      "duration_months": 1293,
+      "end_month": 3193,
+      "effort_days": 15520,
+      "resources_required": 2
+    },
+    {
+      "package_id": "Package_03",
+      "package_name": "Policies Migration",
+      "start_month": 3193,
+      "duration_months": 60,
+      "end_month": 3253,
+      "effort_days": 720,
+      "resources_required": 2
+    },
+    {
+      "package_id": "Package_04",
+      "package_name": "Claims Migration",
+      "start_month": 3253,
+      "duration_months": 206,
+      "end_month": 3459,
+      "effort_days": 2480,
+      "resources_required": 2
+    }
+  ]
+}

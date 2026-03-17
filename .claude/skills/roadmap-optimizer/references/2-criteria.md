@@ -66,7 +66,7 @@ Where:
   }
 ```
 
-**Key insight**: Bridge-from-Legacy and Strategic both cost ~438 hours now, but for future core systems (Polaris, DC Claims, EDM), Bridge-from-Legacy incurs an *additional* 438 hours of future migration cost — making Strategic the preferred choice when available.
+**Key insight**: Bridge-from-Legacy and Strategic both cost similar hours upfront, but for clusters targeting future core systems (defined in config.future_core_systems), Bridge-from-Legacy incurs an *additional* future migration cost — making Strategic the preferred choice when available.
 
 ### Tertiary Objectives (Weighted)
 
@@ -138,10 +138,10 @@ Where:
 | **Target-First** | 20% | 60% | 20% |
 
 ### Fast Exit
-- Gets you off SAS as quickly as possible
+- Gets you off the legacy platform as quickly as possible
 - Accepts higher technical debt
 - Uses more Build-to-Legacy approaches
-- **Choose this if**: SAS licenses are expiring, or there's pressure to decommission fast
+- **Choose this if**: Legacy licenses are expiring, or there's pressure to decommission the source system quickly
 
 ### Balanced
 - Middle ground on all dimensions

@@ -206,6 +206,13 @@ Once all three optimizers complete:
 
 ### Step 3.1: Generate Excel Report
 
+> ⚠️ **CRITICAL: DO NOT USE THE XLSX SKILL**
+>
+> You MUST spawn the `excel-generator` subagent which uses `scripts/excel_generator.py`.
+> - **NEVER invoke the xlsx skill** — it produces simple spreadsheets without the 12-sheet financial-model design
+> - The xlsx skill cannot create: named ranges, Excel Tables, complex conditional formatting, linked charts, or formula-driven cells
+> - Stakeholders expect a professional financial-model workbook, not a basic spreadsheet
+
 **Spawn subagent: `excel-generator`**
 
 ```

@@ -58,21 +58,25 @@ For each job:
 
 ### 3.1: Tag Source System Affiliation
 
-For each job, identify its source system(s) and any decommissioning constraints:
+For each job, identify its source system(s) and any decommissioning constraints.
+Source system deadlines are defined in the configuration file (`config.json` under `system_deadlines`).
+
+**Example configuration (actual values come from config):**
 
 | Source System | Decommission Date | Migration Deadline | Domain |
 |--------------|-------------------|-------------------|--------|
-| CCS | End 2026 | Q3 2026 | Claims |
-| DC Policy | End 2027 | Q2 2027 | Policies |
-| Tecnisys | End 2029 | Q3 2028 | Policies, Entities |
-| Cogen | End 2029 | Q3 2028 | Policies, Entities |
+| Legacy System A | End Year X | Quarter Before | Domain 1 |
+| Legacy System B | End Year Y | Quarter Before | Domain 2 |
 
-### 3.2: Identify Future Core Membership
+> 📝 **Note**: System names and deadlines are project-specific. Read them from the configuration file.
 
-Tag jobs that belong to future core systems:
-- **Polaris** clusters (Policies domain) → eligible for Strategic approach
-- **DC Claims** clusters (Claims domain) → eligible for Strategic approach
-- **EDM** clusters (Entities domain) → eligible for Strategic approach
+### 3.2: Identify Target Core Membership
+
+Tag jobs that belong to target core systems (defined in `config.future_core_systems`):
+- Jobs belonging to target core systems are eligible for the Strategic approach
+- This avoids double-migration cost
+
+> 📝 **Note**: Target core systems are project-specific. Examples include: Polaris, DC Claims, EDM (insurance), Snowflake, Databricks (data platform), or any modernization target.
 
 ### 4. Generate Outputs
 

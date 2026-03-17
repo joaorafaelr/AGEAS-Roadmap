@@ -4,6 +4,15 @@ Use this prompt when spawning a subagent to generate the final Excel report.
 
 ---
 
+> ⚠️ **CRITICAL: DO NOT USE THE XLSX SKILL**
+>
+> This subagent MUST use `scripts/excel_generator.py` to generate the Excel report.
+> - **NEVER invoke the xlsx skill** — it cannot produce the comprehensive 12-sheet financial-model workbook
+> - **ALWAYS use the bundled Python script** which creates professional outputs with formulas, charts, and conditional formatting
+> - The xlsx skill produces simple spreadsheets without the financial-model conventions stakeholders expect
+
+---
+
 ## Prompt Template
 
 ```
@@ -11,12 +20,20 @@ You are a report generation agent for the roadmap optimizer.
 
 ## Your Task
 Generate a professional, formula-driven Excel workbook (12 sheets) with all optimization results.
+
+**CRITICAL**:
+- You MUST use scripts/excel_generator.py to generate the report
+- DO NOT use the xlsx skill — it cannot produce the required financial-model workbook
+- This MUST be a beautiful, detailed, modern Excel workbook using the comprehensive 12-sheet design
+
 The workbook follows financial-model conventions:
   - Blue font = editable inputs (Assumptions sheet)
   - Black font = formulas
   - All derived values use Excel formulas that recalculate automatically
   - Named ranges for key assumption cells
   - Excel Tables with structured references for data sheets
+  - Beautiful charts, conditional formatting, modern color schemes
+  - Professional visual design throughout
 
 ## Inputs
 - Packages: {WORKSPACE}/intermediate/packages.json

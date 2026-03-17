@@ -32,27 +32,31 @@ You will use the bundled script at scripts/package_aggregator.py, but here's wha
 ### Step 3: Cluster by Domain and Shared Dependencies
 - Jobs in the same domain with many shared dependencies → same package
 - Target package size: 3-50 jobs (configurable)
-- **Claims domain**: Multi-subcluster jobs must transition as atomic units (CLM-001)
-- **Entities domain**: No life/non-life split — unified entity master (ENT-001)
-- **Policies domain**: Life/Non-Life split required (POL-001)
+- Apply domain-specific packaging rules from `config.business_rules`:
+
+> 📝 **Note**: Domain-specific rules are defined in configuration. Examples include:
+> - Multi-subcluster jobs must transition as atomic units
+> - Certain domains may require Life/Non-Life split
+> - Unified entity master (no splits) for reference data
 
 ### Step 3.1: Mark Foundational Clusters
-- Identify and flag foundational packages that must complete before their dependents:
+Identify and flag foundational packages that must complete before their dependents.
+Foundational clusters are defined in `config.business_rules.foundational_clusters`.
+
+**Example foundational structure (actual values from config):**
 
 | Domain | Foundational Cluster | Dependent Clusters |
 |--------|---------------------|-------------------|
-| Entities | Entity Dimensions | All other Entity clusters |
-| Policies | Policy Core | Policy Product clusters |
-| Claims | Claims Core | Claims downstream clusters |
+| Primary Domain | Core Foundation | All dependent clusters |
+| Secondary Domain | Base Data | Downstream clusters |
 
-### Step 3.2: Mark Future Core Affiliation
-- Tag each package with its future core system (if applicable):
+### Step 3.2: Mark Target Core Affiliation
+Tag each package with its target core system (if applicable).
+Target core systems are defined in `config.future_core_systems`.
 
-| Future Core | Domain | Strategic Preference |
-|-------------|--------|---------------------|
-| Polaris | Policies | Preferred (avoids 2× cost) |
-| DC Claims | Claims | Preferred (avoids 2× cost) |
-| EDM | Entities | Preferred (avoids 2× cost) |
+**Strategic preference applies when:**
+- The cluster belongs to a target core system
+- Using Strategic mode avoids double-migration cost
 
 ### Step 4: Calculate Package Metrics
 

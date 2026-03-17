@@ -155,12 +155,18 @@ Package B: Month 58-63  ✗ VIOLATION (ends after horizon)
 ### What this means
 Source systems have hard end-of-life dates. All clusters that read from or depend on a system must finish their transition before the migration deadline.
 
+**Example deadlines (from configuration):**
+
 | System | Current Role | Decommission Date | Migration Deadline | Affected Domain |
 |--------|-------------|-------------------|-------------------|-----------------|
-| CCS | Claims Core System | End 2026 | **Q3 2026** | Claims |
-| DC Policy | Policy Data | End 2027 | **Q2 2027** | Policies |
-| Tecnisys | Legacy Non-Life | End 2029 | **Q3 2028** | Policies, Entities |
-| Cogen | Legacy Life | End 2029 | **Q3 2028** | Policies, Entities |
+| Legacy System A | Core Processing | End Year X | Quarter Before | Primary Domain |
+| Legacy System B | Data Source | End Year Y | Quarter Before | Secondary Domain |
+| Legacy System C | Supporting | End Year Z | Quarter Before | Multiple Domains |
+
+> 📝 **Note**: Actual system deadlines are defined in `config.json` under `system_deadlines`. The examples above are illustrative. Your configuration might include systems like:
+> - CCS, Tecnisys, Cogen (data platforms)
+> - Legacy Mainframe, Old CRM (enterprise systems)
+> - On-premise databases (infrastructure)
 
 ```
 Constraint: completion_wave(cluster_i) ≤ migration_deadline(source_system(cluster_i))
@@ -168,7 +174,7 @@ Constraint: completion_wave(cluster_i) ≤ migration_deadline(source_system(clus
 
 ### Why this is non-negotiable
 - After decommissioning, the source system no longer exists — data cannot be accessed
-- CCS-dependent claims clusters are the most urgent (Q3 2026)
+- System-dependent clusters with the earliest deadlines are the most urgent
 - Missing a deadline means the transition fails for that cluster
 
 ---
@@ -193,21 +199,26 @@ Certain clusters are structural prerequisites for entire domain areas:
 
 ## Constraint 8: Strategic Approach Prerequisites
 
-> **Strategic approach can only be used when the future core system is available.**
+> **Strategic approach can only be used when the target core system is available.**
 
 ```
 IF approach(cluster_i) = Strategic
-THEN future_core_available(cluster_i) = TRUE
-AND  sas_core_system_replicas_available(cluster_i) = TRUE
+THEN target_system_available(cluster_i) = TRUE
+AND  source_system_replicas_available(cluster_i) = TRUE
      before start_wave(cluster_i)
 
-WHERE future_cores ∈ {Polaris, DC_Claims, EDM}
+WHERE target_systems are defined in config.future_core_systems
 ```
 
 ### What this means
-- Strategic transitions require the corresponding future core system (Polaris, DC Claims, or EDM) to be available
-- SAS core system replicas must also be available
-- Only clusters belonging to future cores can use the Strategic approach
+- Strategic transitions require the corresponding target system to be available
+- Source system replicas must also be available for dual-run validation
+- Only clusters belonging to target core systems (defined in config) can use the Strategic approach
+
+> 📝 **Note**: Target systems are defined in `config.json` under `future_core_systems`. Examples include:
+> - **Data Platform Migrations**: Target data warehouse, lakehouse, or analytics platform
+> - **Application Modernization**: Target microservices platform, cloud runtime
+> - **Enterprise Systems**: New ERP, CRM, or core banking platform
 
 ### Why this is non-negotiable
 - Without the target system available, there's nothing to build to strategically
@@ -217,36 +228,75 @@ WHERE future_cores ∈ {Polaris, DC_Claims, EDM}
 
 ## Domain-Specific Hard Rules
 
-### Claims Domain
-| Rule ID | Rule | Rationale |
-|---------|------|-----------|
-| CLM-001 | Multi-subcluster jobs must transition as atomic units | Ensure data consistency across claims processing |
-| CLM-002 | NR34/NR35/NR36 regulatory compliance required | Belgian insurance regulatory requirements |
-| CLM-003 | DC Claims is the future core platform | Qualifies for Strategic approach |
-| CLM-004 | CCS-dependent clusters must complete by Q3 2026 | CCS decommissioning deadline |
+Domain-specific rules are defined in your project's `config.json` under `business_rules.domain_rules`. These rules encode your organization's specific requirements.
 
-**Structure**: 163 jobs across 7 subclusters; atomic unit is the claims processing chain.
+### Example Rule Structure
 
-### Entities Domain
-| Rule ID | Rule | Rationale |
-|---------|------|-----------|
-| ENT-001 | No life/non-life split for entities | Unified entity master across all business lines |
-| ENT-002 | EDM is the future core master | Qualifies for Strategic approach |
-| ENT-003 | Entity Dimensions is foundational | Must complete before other entity clusters |
-| ENT-004 | Cross-domain entity references must align | Entities serve Claims and Policies |
+Rules should be defined per domain with the following pattern:
 
-**Structure**: 377 jobs across 10+ subclusters; no business line segmentation.
+```json
+{
+  "business_rules": {
+    "domain_rules": {
+      "domain_name": {
+        "rules": [
+          {
+            "rule_id": "DOM-001",
+            "rule": "Description of the rule",
+            "rationale": "Why this rule exists",
+            "enforcement": "hard"
+          }
+        ],
+        "structure": {
+          "job_count": 163,
+          "subclusters": 7,
+          "notes": "Atomic unit description"
+        }
+      }
+    }
+  }
+}
+```
 
-### Policies Domain
-| Rule ID | Rule | Rationale |
-|---------|------|-----------|
-| POL-001 | Life/Non-Life split required | Different regulatory and product structures |
-| POL-002 | Policy Core is foundational | Must complete before product-specific clusters |
-| POL-003 | Polaris is the future core platform | Qualifies for Strategic approach |
-| POL-004 | Tecnisys clusters → Q3 2028 deadline | Source system decommissioning |
-| POL-005 | Cogen clusters → Q3 2028 deadline | Source system decommissioning |
+### Common Rule Categories
 
-**Structure**: 775 jobs across 25+ subclusters; Life vs Non-Life segmentation; multiple legacy sources.
+| Category | Example Rules |
+|----------|--------------|
+| **Atomic Transitions** | Multi-component jobs must transition together |
+| **Regulatory Compliance** | Specific regulatory requirements (GDPR, SOX, industry-specific) |
+| **Future Core Designation** | Which systems qualify for Strategic approach |
+| **System Deadlines** | Decommissioning-driven constraints |
+| **Domain Segmentation** | Whether to split by business line (e.g., Life/Non-Life for insurance) |
+
+### Sample Domain Configuration
+
+**Domain A (with unified structure):**
+```json
+{
+  "domain_a": {
+    "rules": [
+      {"rule_id": "A-001", "rule": "No business-line split", "rationale": "Unified master data"},
+      {"rule_id": "A-002", "rule": "System X is future core", "rationale": "Strategic target"}
+    ],
+    "structure": {"job_count": 377, "subclusters": 10, "notes": "No segmentation"}
+  }
+}
+```
+
+**Domain B (with segmented structure):**
+```json
+{
+  "domain_b": {
+    "rules": [
+      {"rule_id": "B-001", "rule": "Segment by business line", "rationale": "Different regulatory structures"},
+      {"rule_id": "B-002", "rule": "Core cluster is foundational", "rationale": "Must complete first"}
+    ],
+    "structure": {"job_count": 775, "subclusters": 25, "notes": "Life vs Non-Life segmentation"}
+  }
+}
+```
+
+> 📝 **Note**: The specific rule IDs, system names, and job counts above are examples. Define your actual rules in your project's configuration file. See `references/0-project-configuration.md` for the complete configuration guide.
 
 ---
 

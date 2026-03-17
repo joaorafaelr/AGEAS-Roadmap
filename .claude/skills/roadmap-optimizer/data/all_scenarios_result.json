@@ -1,0 +1,140 @@
+{
+  "fast_exit": {
+    "scenario_name": "Fast Exit",
+    "description": "Aggressive timeline with maximum resource utilization",
+    "total_duration_months": 24,
+    "resource_utilization": 0.95,
+    "risk_score": 0.7,
+    "cost_multiplier": 1.3,
+    "schedule": [
+      {
+        "package_id": "Package_01",
+        "package_name": "Entities Foundation",
+        "start_month": 1,
+        "duration_months": 12,
+        "end_month": 12,
+        "resources_required": 5,
+        "mode": "strategic"
+      },
+      {
+        "package_id": "Package_02",
+        "package_name": "Entities Extensions",
+        "start_month": 8,
+        "duration_months": 10,
+        "end_month": 18,
+        "resources_required": 4,
+        "mode": "bridge_to_model"
+      },
+      {
+        "package_id": "Package_03",
+        "package_name": "Policies Migration",
+        "start_month": 12,
+        "duration_months": 6,
+        "end_month": 18,
+        "resources_required": 2,
+        "mode": "strategic"
+      },
+      {
+        "package_id": "Package_04",
+        "package_name": "Claims Migration",
+        "start_month": 16,
+        "duration_months": 8,
+        "end_month": 24,
+        "resources_required": 3,
+        "mode": "bridge_to_model"
+      }
+    ]
+  },
+  "balanced": {
+    "scenario_name": "Balanced",
+    "description": "Optimal balance of speed, cost, and risk management",
+    "total_duration_months": 36,
+    "resource_utilization": 0.75,
+    "risk_score": 0.5,
+    "cost_multiplier": 1.0,
+    "schedule": [
+      {
+        "package_id": "Package_01",
+        "package_name": "Entities Foundation",
+        "start_month": 1,
+        "duration_months": 15,
+        "end_month": 15,
+        "resources_required": 4,
+        "mode": "strategic"
+      },
+      {
+        "package_id": "Package_02",
+        "package_name": "Entities Extensions",
+        "start_month": 12,
+        "duration_months": 12,
+        "end_month": 24,
+        "resources_required": 3,
+        "mode": "bridge_to_model"
+      },
+      {
+        "package_id": "Package_03",
+        "package_name": "Policies Migration",
+        "start_month": 24,
+        "duration_months": 8,
+        "end_month": 32,
+        "resources_required": 2,
+        "mode": "strategic"
+      },
+      {
+        "package_id": "Package_04",
+        "package_name": "Claims Migration",
+        "start_month": 28,
+        "duration_months": 8,
+        "end_month": 36,
+        "resources_required": 3,
+        "mode": "bridge_to_model"
+      }
+    ]
+  },
+  "target_first": {
+    "scenario_name": "Target-First",
+    "description": "Conservative approach prioritizing risk reduction and quality",
+    "total_duration_months": 48,
+    "resource_utilization": 0.6,
+    "risk_score": 0.3,
+    "cost_multiplier": 0.8,
+    "schedule": [
+      {
+        "package_id": "Package_01",
+        "package_name": "Entities Foundation",
+        "start_month": 1,
+        "duration_months": 18,
+        "end_month": 18,
+        "resources_required": 3,
+        "mode": "strategic"
+      },
+      {
+        "package_id": "Package_02",
+        "package_name": "Entities Extensions",
+        "start_month": 18,
+        "duration_months": 15,
+        "end_month": 33,
+        "resources_required": 3,
+        "mode": "bridge_to_model"
+      },
+      {
+        "package_id": "Package_03",
+        "package_name": "Policies Migration",
+        "start_month": 33,
+        "duration_months": 10,
+        "end_month": 43,
+        "resources_required": 2,
+        "mode": "strategic"
+      },
+      {
+        "package_id": "Package_04",
+        "package_name": "Claims Migration",
+        "start_month": 43,
+        "duration_months": 5,
+        "end_month": 48,
+        "resources_required": 2,
+        "mode": "bridge_to_model"
+      }
+    ]
+  }
+}

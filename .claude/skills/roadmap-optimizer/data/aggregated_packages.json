@@ -1,0 +1,114 @@
+[
+  {
+    "package_id": "Package_01",
+    "name": "Entities Foundation",
+    "domain": "Entities",
+    "job_ids": [
+      "Entities_Entity_Dimensions"
+    ],
+    "job_count": 1,
+    "total_effort_days": 22800.0,
+    "complexity_score": 4.8,
+    "upstream_packages": [],
+    "downstream_packages": [],
+    "upstream_count": 0,
+    "downstream_count": 0,
+    "centrality_score": 0.0,
+    "business_value": 0.822,
+    "risk_score": 0.6533333333333333,
+    "source_systems": [
+      "CCS"
+    ],
+    "belongs_to_future_core": true,
+    "deadline_month": null,
+    "assigned_team": null
+  },
+  {
+    "package_id": "Package_02",
+    "name": "Entities Extensions",
+    "domain": "Entities",
+    "job_ids": [
+      "Entities_Entity_Address",
+      "Entities_Entity_Changes_Requests",
+      "Entities_Entity_Contacts",
+      "Entities_Entity_Email",
+      "Entities_Entity_Persons",
+      "Entities_Entity_Phone",
+      "Entities_Entity_Relationships",
+      "Entities_Entity_General",
+      "Entities_Historical_Load",
+      "Entities_Infrastructure_Control",
+      "Entities_Reference_Data_Source_Extracts"
+    ],
+    "job_count": 11,
+    "total_effort_days": 15520.0,
+    "complexity_score": 3.0,
+    "upstream_packages": [
+      "Package_01"
+    ],
+    "downstream_packages": [],
+    "upstream_count": 1,
+    "downstream_count": 0,
+    "centrality_score": 0.0,
+    "business_value": 0.842,
+    "risk_score": 0.5888888888888889,
+    "source_systems": [
+      "CCS"
+    ],
+    "belongs_to_future_core": true,
+    "deadline_month": null,
+    "assigned_team": null
+  },
+  {
+    "package_id": "Package_03",
+    "name": "Policies Migration",
+    "domain": "Policies",
+    "job_ids": [
+      "Policies_Funds"
+    ],
+    "job_count": 1,
+    "total_effort_days": 720.0,
+    "complexity_score": 4.8,
+    "upstream_packages": [
+      "Package_01"
+    ],
+    "downstream_packages": [],
+    "upstream_count": 1,
+    "downstream_count": 0,
+    "centrality_score": 0.0,
+    "business_value": 0.882,
+    "risk_score": 0.5755555555555556,
+    "source_systems": [
+      "CCS",
+      "Cogen",
+      "Tecnisys"
+    ],
+    "belongs_to_future_core": true,
+    "deadline_month": null,
+    "assigned_team": null
+  },
+  {
+    "package_id": "Package_04",
+    "name": "Claims Migration",
+    "domain": "Claims",
+    "job_ids": [
+      "Claims_General"
+    ],
+    "job_count": 1,
+    "total_effort_days": 2480.0,
+    "complexity_score": 3.0,
+    "upstream_packages": [],
+    "downstream_packages": [],
+    "upstream_count": 0,
+    "downstream_count": 0,
+    "centrality_score": 0.0,
+    "business_value": 0.902,
+    "risk_score": 0.5333333333333333,
+    "source_systems": [
+      "Cogen"
+    ],
+    "belongs_to_future_core": true,
+    "deadline_month": null,
+    "assigned_team": null
+  }
+]

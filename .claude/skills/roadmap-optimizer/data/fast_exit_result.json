@@ -1,0 +1,45 @@
+{
+  "scenario_name": "Fast Exit",
+  "description": "Minimize time with maximum parallelization",
+  "total_duration_months": 24,
+  "resource_utilization": 0.95,
+  "risk_score": 0.7,
+  "schedule": [
+    {
+      "package_id": "Package_01",
+      "package_name": "Entities Foundation",
+      "start_month": 0,
+      "duration_months": 1140,
+      "end_month": 1140,
+      "effort_days": 22800,
+      "resources_required": 3
+    },
+    {
+      "package_id": "Package_02",
+      "package_name": "Entities Extensions",
+      "start_month": 6,
+      "duration_months": 776,
+      "end_month": 782,
+      "effort_days": 15520,
+      "resources_required": 2
+    },
+    {
+      "package_id": "Package_03",
+      "package_name": "Policies Migration",
+      "start_month": 12,
+      "duration_months": 36,
+      "end_month": 48,
+      "effort_days": 720,
+      "resources_required": 3
+    },
+    {
+      "package_id": "Package_04",
+      "package_name": "Claims Migration",
+      "start_month": 18,
+      "duration_months": 124,
+      "end_month": 142,
+      "effort_days": 2480,
+      "resources_required": 2
+    }
+  ]
+}

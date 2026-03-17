@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:chatgpt.com)",
+      "Bash(dir:*)",
+      "Bash(cd C:\\\\Users\\\\joaomaia\\\\OneDrive - Deloitte \\(O365D\\)\\\\Desktop\\\\RoadmapSkill:*)",
+      "Bash(ls:*)",
+      "Bash(cd C:\\\\Users\\\\joaomaia\\\\OneDrive - Deloitte \\(O365D\\)\\\\Desktop\\\\RoadmapSkill\\\\roadmap-optimizer-workspace\\\\iteration-1\\\\eval-1\\\\with_skill\\\\outputs:*)",
+      "Bash(powershell:*)",
+      "Bash(cd C:\\\\Users\\\\joaomaia\\\\OneDrive - Deloitte \\(O365D\\)\\\\Desktop\\\\RoadmapSkill\\\\roadmap-optimizer-workspace\\\\iteration-1\\\\eval-2\\\\without_skill\\\\outputs:*)",
+      "Bash(python:*)",
+      "Bash(find C:\\\\Users\\\\joaomaia\\\\OneDrive - Deloitte \\(O365D\\)\\\\Desktop\\\\RoadmapSkill:*)",
+      "Bash(dir C:\\\\Users\\\\joaomaia\\\\OneDrive - Deloitte \\(O365D\\)\\\\Desktop\\\\RoadmapSkill:*)",
+      "Bash(del:*)",
+      "Bash(claude:*)",
+      "Bash(xcopy:*)",
+      "Bash(find .:*)",
+      "Bash(powershell Get-Content:*)",
+      "Bash(copy:*)",
+      "WebSearch",
+      "Bash(find:*)",
+      "Bash(wc:*)",
+      "Bash(cd C:\\\\Users\\\\joaomaia\\\\OneDrive - Deloitte \\(O365D\\)\\\\Desktop\\\\RoadmapSkill\\\\roadmap-optimizer-workspace\\\\iteration-1\\\\eval-0\\\\with_skill\\\\outputs\\\\intermediate:*)",
+      "Bash(tail:*)",
+      "Bash(pip install:*)",
+      "Bash(cd:*)",
+      "Bash(cd /tmp && python3 -u sas_migration_simple.py 2>&1)",
+      "Bash(powershell.exe:*)",
+      "Bash(cmd.exe:*)",
+      "Bash(python3:*)",
+      "Bash(py --version 2>&1 && py -c \"import ast; source = open\\(r'C:\\\\Users\\\\joaomaia\\\\OneDrive - Deloitte \\(O365D\\)\\\\Desktop\\\\RoadmapSkill\\\\.claude\\\\skills\\\\roadmap-optimizer\\\\scripts\\\\mrcpsp_optimizer.py', encoding='utf-8'\\).read\\(\\); ast.parse\\(source\\); print\\('Syntax OK'\\); print\\('Lines:', len\\(source.splitlines\\(\\)\\)\\)\" 2>&1)",
+      "Bash(echo:*)"
+    ]
+  }
+}

@@ -51,7 +51,12 @@ The optimizer supports multiple execution strategies:
 
 ## Quick Start
 
-**IMPORTANT**: Read `references/8-workflow-orchestration.md` first — it tells you exactly how to execute this skill step-by-step, including when to spawn subagents.
+> ⚠️ **CRITICAL: Excel Generation**
+> This skill MUST generate a beautiful, comprehensive 12-sheet Excel workbook using the `excel-generator` subagent and `scripts/excel_generator.py`.
+> - **NEVER use the xlsx skill** for report generation - it produces simple files without the financial-model conventions
+> - **ALWAYS use `scripts/excel_generator.py`** which creates the full 12-sheet professional workbook
+
+Read `references/8-workflow-orchestration.md` first — it tells you exactly how to execute this skill step-by-step, including when to spawn subagents.
 
 ### High-Level Flow
 
@@ -74,7 +79,9 @@ Phase 1: Data Ingestion       Phase 2: Optimization      Phase 3: Output
 | Run Fast Exit | `scenario-optimizer` | **Yes** |
 | Run Balanced | `scenario-optimizer` | **Yes** |
 | Run Target-First | `scenario-optimizer` | **Yes** |
-| Generate Excel | `excel-generator` | No (needs all results) |
+| Generate Excel | `excel-generator` | **No (needs all results)** |
+
+> ⚠️ **WARNING**: The Excel report MUST be generated using `scripts/excel_generator.py` via the `excel-generator` subagent. NEVER use the `xlsx` skill — it cannot produce the comprehensive 12-sheet financial-model workbook that stakeholders expect.
 
 See `agents/` folder for exact subagent prompts.
 
@@ -91,6 +98,7 @@ See `agents/` folder for exact subagent prompts.
 | `references/4-soft-constraints.md` | Preferences that CAN be traded off |
 | `references/5-optimization.md` | How the solver works, objective weights |
 | `references/6-outputs.md` | Excel report structure and deliverables |
+| `references/9-technical-grounding.md` | **NEW:** Effort estimation from job metadata |
 
 ### Technical Details
 | File | What It Covers |

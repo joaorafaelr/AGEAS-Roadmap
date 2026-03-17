@@ -76,11 +76,18 @@ This document provides the **exact mathematical specification** of the optimizat
 
 ### Future Core Systems
 
-| System | Domain | Clusters Affected |
-|--------|--------|------------------|
-| Polaris | Policies | Policy-related clusters |
-| DC Claims | Claims | Claims-related clusters |
-| EDM | Entities | Entity-related clusters |
+Future core systems are defined in `config.json` under `future_core_systems`. Example:
+
+```json
+{
+  "future_core_systems": {
+    "TargetPlatform": { "domains": ["domain_a", "domain_b"] }
+  },
+  "future_core_domains": ["domain_a", "domain_b"]
+}
+```
+
+Only clusters in `future_core_domains` are eligible for the Strategic approach.
 
 ---
 
@@ -213,17 +220,22 @@ for month in range(horizon):
 
 $$end_i \leq deadline(system(i)) \quad \forall i \in P \text{ where } system(i) \text{ has a deadline}$$
 
-| System | Deadline Month |
-|--------|---------------|
-| CCS (Claims) | ~18 (Q3 2026) |
-| DC Policy | ~30 (Q2 2027) |
-| Tecnisys / Cogen | ~42 (Q3 2028) |
+System deadlines are defined in `config.json` under `system_deadlines`. Example configuration:
+
+```json
+{
+  "system_deadlines": {
+    "LegacySystem1": { "migration_deadline": "2026-Q3", "affected_domains": ["domain_a"] },
+    "LegacySystem2": { "migration_deadline": "2027-Q2", "affected_domains": ["domain_b"] }
+  }
+}
+```
 
 ### C9: Strategic Approach Prerequisites
 
 $$x_{i,strategic} = 1 \implies future\_core\_available(i) = 1 \quad \forall i \in P$$
 
-Only clusters belonging to future cores (Polaris, DC Claims, EDM) can select Strategic mode.
+Only clusters belonging to future core domains (defined in `config.future_core_domains`) can select Strategic mode.
 
 ---
 

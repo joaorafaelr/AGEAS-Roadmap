@@ -43,11 +43,11 @@ Unlike hard constraints (which cause failure if violated), soft constraints infl
 > **Prefer Strategic migration mode when possible.**
 
 ### Why we prefer Strategic
-- Aligns with target Databricks architecture
+- Aligns with target architecture
 - Zero technical debt
 - No rework needed later
-- Uses ODL replica initially, upgraded when ODL production is ready
-- **For future core systems, Strategic avoids the double-cost of Bridge-from-Legacy**
+- Uses staging/replica environment initially, upgraded when production is ready
+- **For clusters targeting future core systems, Strategic avoids the double-cost of Build-from-Legacy**
 
 ### How it's applied
 ```
@@ -233,7 +233,7 @@ Understanding the true cost of each approach is critical for informed trade-offs
 
 | Rank | Approach | Relative Cost | Typical Hours | Rationale |
 |------|----------|---------------|---------------|-----------|
-| 1 (LOWEST) | Bridge-to-Model | 1.0× (baseline) | ~150 hours | Reuses SAS output directly; minimal rework; leverages existing analytical models (UNO, MAOC, MAE, MAS) |
+| 1 (LOWEST) | Bridge-to-Model | 1.0× (baseline) | ~150 hours | Reuses source output directly; minimal rework; leverages existing analytical models |
 | 2 (EQUAL) | Strategic | 2.9× | ~438 hours | Full target model redesign; complete transformation to future core systems |
 | 2 (EQUAL) | Bridge-from-Legacy | 2.9× | ~438 hours | Same complexity as Strategic; requires dual-run infrastructure, reconciliation effort, variance monitoring |
 
@@ -248,8 +248,8 @@ Understanding the true cost of each approach is critical for informed trade-offs
 ### Cost Components by Phase
 
 #### Strategic Approach (~438 hours) — Future Cores Only
-**Applicable to:** Polaris (Policies), DC Claims (Claims), EDM (Entities)
-**Requires:** SAS core system replicas available
+**Applicable to:** Clusters belonging to future core systems (defined in `config.future_core_systems`)
+**Requires:** Source system replicas available for validation
 
 | Phase | Hours | % of Total |
 |-------|-------|------------|
@@ -263,7 +263,7 @@ Understanding the true cost of each approach is critical for informed trade-offs
 
 | Phase | Hours | % of Total |
 |-------|-------|------------|
-| SAS Output Analysis | 30 | 20% |
+| Source Output Analysis | 30 | 20% |
 | Minimal Transformation | 38 | 25% |
 | Integration & Validation | 52 | 35% |
 | Transition Planning | 30 | 20% |
@@ -300,9 +300,9 @@ Where:
 
 | Criterion | Strategic | Bridge-to-Model | Bridge-from-Legacy |
 |-----------|-----------|-----------------|-------------------|
-| Future core availability | Required (Polaris, DC Claims, EDM) | Not required | Not required |
+| Future core availability | Required (defined in config) | Not required | Not required |
 | Target model available | Required | Analytical model exists | Not required |
-| SAS core system replicas | Required | Not required | Not required |
+| Source system replicas | Required | Not required | Not required |
 | Go-live status | Future cores must be live | Target/migration dates must NOT be live | Any status |
 | Similarity score | High (>70%) | Medium (50-70%) | Low (<50%) |
 | Complexity score | Any | Low-Medium | Medium-High |
@@ -313,9 +313,9 @@ Where:
 
 ```
 # Strategic Approach — For Future Cores Only (Preferred to avoid future migration cost)
-IF cluster_belongs_to_future_core(Polaris OR DC_Claims OR EDM)
+IF cluster_belongs_to_future_core  # Defined in config.future_core_systems
    AND future_core_available
-   AND sas_core_system_replicas_available
+   AND source_system_replicas_available
    AND similarity_score > 70%
    AND strategic_importance = HIGH
 THEN approach = Strategic
@@ -333,18 +333,39 @@ ELSE IF time_pressure = HIGH
    OR (target_model_available = FALSE AND deadline_imminent)
    OR (target_go_live_date = live OR target_migration_date = live)
 THEN approach = Bridge-from-Legacy
-   IF cluster_belongs_to_future_core THEN add_future_migration_cost = 438_hours
+   IF cluster_belongs_to_future_core THEN add_future_migration_cost
 ```
 
 ### Future Core Systems
 
-The Strategic approach is exclusively applicable to clusters belonging to future core systems and should be **preferred** to avoid double cost:
+The Strategic approach is exclusively applicable to clusters belonging to future core systems and should be **preferred** to avoid double cost.
 
-| Future Core | Domain | Description | Strategic Preference |
-|-------------|--------|-------------|---------------------|
-| **Polaris** | Policies | Strategic policy administration platform | **Strongly preferred** to avoid 2× cost |
-| **DC Claims** | Claims | Strategic claims processing platform | **Strongly preferred** to avoid 2× cost |
-| **EDM** | Entities | Enterprise Data Model for unified entity management | **Strongly preferred** to avoid 2× cost |
+Future core systems are defined in your project's `config.json` under `future_core_systems`:
+
+```json
+{
+  "future_core_systems": {
+    "TargetPlatform1": {
+      "description": "Strategic target for Domain A",
+      "domains": ["domain_a"],
+      "availability_month": 12
+    },
+    "TargetPlatform2": {
+      "description": "Strategic target for Domain B",
+      "domains": ["domain_b"],
+      "availability_month": 18
+    }
+  },
+  "future_core_domains": ["domain_a", "domain_b"]
+}
+```
+
+| Configuration Key | Purpose |
+|------------------|---------|
+| `future_core_systems` | Defines available target platforms with their domains and availability |
+| `future_core_domains` | List of domains that qualify for Strategic approach |
+
+> 📝 **Note**: Only clusters belonging to `future_core_domains` can use the Strategic approach. All others must use Bridge or Build-to-Legacy approaches.
 
 ### Approach Transition Paths
 

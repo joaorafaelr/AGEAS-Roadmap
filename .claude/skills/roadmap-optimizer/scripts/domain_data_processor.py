@@ -333,7 +333,48 @@ class DomainDataProcessor:
         """Generate an enhanced configuration incorporating domain-specific data."""
         config = {
             "migration_horizon_months": 60,
+            "odl_completion_month": 0,
             "team_capacity": 6,
+            "project_start_year": 2025,
+            "project_start_month": 1,
+            "working_days_month": 20,
+            "future_core_domains": ["Claims", "Entities", "Policies"],
+            "future_core_systems": ["DC Claims", "EDM", "Polaris"],
+            "concurrent_limits": {
+                "max_strategic_parallel": 2,
+                "max_total_parallel": 4
+            },
+            "mode_parameters": {
+                "build_to_legacy": {
+                    "duration_multiplier": 0.8,
+                    "tech_debt_penalty": 2.0,
+                    "resource_efficiency": 1.0,
+                    "base_hours": 438,
+                    "cost_multiplier": 1.0,
+                    "strategic_value": 0.2,
+                    "future_migration_hours": 438
+                },
+                "bridge_to_model": {
+                    "duration_multiplier": 1.0,
+                    "tech_debt_penalty": 1.0,
+                    "resource_efficiency": 0.9,
+                    "base_hours": 150,
+                    "cost_multiplier": 1.0,
+                    "strategic_value": 0.6,
+                    "future_migration_hours": 0
+                },
+                "strategic": {
+                    "duration_multiplier": 1.3,
+                    "tech_debt_penalty": 0.0,
+                    "resource_efficiency": 0.8,
+                    "base_hours": 438,
+                    "cost_multiplier": 1.0,
+                    "strategic_value": 1.0,
+                    "future_migration_hours": 0
+                }
+            },
+            "domain_constraints": self._generate_domain_constraints(),
+            "system_deadlines": self._generate_system_deadlines(),
             "domain_clusters": {},
             "analytical_models": {},
             "business_rules": self._generate_business_rules()
@@ -360,6 +401,39 @@ class DomainDataProcessor:
             json.dump(config, f, indent=2)
 
         return config
+
+    def _generate_domain_constraints(self) -> Dict[str, Dict[str, float]]:
+        """Provide default start-window and priority guidance by domain."""
+        return {
+            "Claims": {"earliest_start": 0, "priority_weight": 1.0},
+            "Entities": {"earliest_start": 0, "priority_weight": 0.95},
+            "Policies": {"earliest_start": 2, "priority_weight": 0.9}
+        }
+
+    def _generate_system_deadlines(self) -> Dict[str, Dict[str, Any]]:
+        """Emit solver-friendly numeric deadline months with affected domains."""
+        return {
+            "CCS": {
+                "deadline_month": 21,
+                "migration_deadline": "2026-Q3",
+                "affected_domains": ["Claims", "Entities", "Policies"]
+            },
+            "DC Policy": {
+                "deadline_month": 30,
+                "migration_deadline": "2027-Q2",
+                "affected_domains": ["Policies"]
+            },
+            "Tecnisys": {
+                "deadline_month": 45,
+                "migration_deadline": "2028-Q3",
+                "affected_domains": ["Policies", "Entities"]
+            },
+            "Cogen": {
+                "deadline_month": 45,
+                "migration_deadline": "2028-Q3",
+                "affected_domains": ["Policies", "Entities", "Claims"]
+            }
+        }
 
     def _calculate_cluster_complexity(self, cluster: DomainCluster) -> float:
         """Calculate a complexity score for a cluster based on its metrics."""

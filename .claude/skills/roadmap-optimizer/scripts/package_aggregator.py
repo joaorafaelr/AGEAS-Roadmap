@@ -19,6 +19,7 @@ class JobInfo:
     steps: List[Dict]
     upstream_deps: List[str]
     downstream_deps: List[str]
+    source_systems: List[str]
     complexity_score: float
     estimated_effort_days: float
 
@@ -35,6 +36,8 @@ class MigrationPackage:
     centrality_score: float
     business_value: float
     risk_score: float
+    source_systems: List[str]
+    belongs_to_future_core: bool
 
 class PackageAggregator:
     def __init__(self, jobs_data: List[Dict], config: Dict):
@@ -53,6 +56,7 @@ class PackageAggregator:
                 steps=job_data.get('steps', []),
                 upstream_deps=job_data.get('upstream_dependencies', []),
                 downstream_deps=job_data.get('downstream_dependencies', []),
+                source_systems=job_data.get('source_systems', []),
                 complexity_score=self._calculate_complexity(job_data),
                 estimated_effort_days=self._estimate_effort(job_data)
             )
@@ -161,10 +165,12 @@ class PackageAggregator:
             # Calculate package dependencies
             all_upstream = set()
             all_downstream = set()
+            source_systems = set()
 
             for job_id in job_ids:
                 all_upstream.update(self.jobs[job_id].upstream_deps)
                 all_downstream.update(self.jobs[job_id].downstream_deps)
+                source_systems.update(self.jobs[job_id].source_systems)
 
             # Remove internal dependencies
             upstream_packages = all_upstream - set(job_ids)
@@ -189,7 +195,11 @@ class PackageAggregator:
                 downstream_packages=list(downstream_packages),
                 centrality_score=package_centrality,
                 business_value=business_value,
-                risk_score=risk_score
+                risk_score=risk_score,
+                source_systems=sorted(source_systems),
+                belongs_to_future_core=dominant_domain.lower() in {
+                    item.lower() for item in self.config.get('future_core_domains', [])
+                }
             )
 
             self.packages[cluster_id] = package
@@ -316,12 +326,16 @@ class PackageAggregator:
                 'job_count': len(package.job_ids),
                 'total_effort_days': package.total_effort_days,
                 'complexity_score': package.complexity_score,
+                'upstream_packages': package.upstream_packages,
+                'downstream_packages': package.downstream_packages,
                 'upstream_count': len(package.upstream_packages),
                 'downstream_count': len(package.downstream_packages),
                 'centrality_score': package.centrality_score,
                 'business_value': package.business_value,
                 'risk_score': package.risk_score,
-                'job_ids': package.job_ids
+                'job_ids': package.job_ids,
+                'source_systems': package.source_systems,
+                'belongs_to_future_core': package.belongs_to_future_core
             })
 
         with open(output_path, 'w') as f:
@@ -346,17 +360,13 @@ if __name__ == "__main__":
         with open(json_file) as f:
             jobs_data.append(json.load(f))
 
-    # Default configuration
+    # Default configuration (project-specific values should come from config.json)
+    # See templates/sample_config.json for configuration options
     config = {
         "max_package_size": 50,
         "min_package_size": 3,
-        "domain_weights": {
-            "customer": 1.0,
-            "product": 0.9,
-            "claims": 0.95,
-            "finance": 0.8,
-            "operations": 0.7
-        }
+        "future_core_domains": [],  # Empty by default - provide via config.json
+        "domain_weights": {}        # Empty by default - provide via config.json
     }
 
     # Run aggregation

@@ -1,0 +1,208 @@
+{
+  "_project": "Ageas SAS-to-Databricks Migration",
+  "_description": "Migration of 29,000+ SAS programs to Databricks platform",
+  "_created": "2024-01-15",
+  "_version": "1.0.0",
+
+  "migration_horizon_months": 60,
+  "team_capacity": 6,
+  "project_start_year": 2024,
+  "project_start_month": 1,
+
+  "_section_future_core": "Ageas target platforms qualifying for Strategic approach",
+  "future_core_systems": {
+    "Polaris": {
+      "description": "Strategic policy administration platform",
+      "domains": ["policies"],
+      "availability_month": 18
+    },
+    "DC_Claims": {
+      "description": "Strategic claims processing platform",
+      "domains": ["claims"],
+      "availability_month": 12
+    },
+    "EDM": {
+      "description": "Enterprise Data Model for unified entity management",
+      "domains": ["entities"],
+      "availability_month": 6
+    }
+  },
+  "future_core_domains": ["claims", "entities", "policies"],
+
+  "_section_deadlines": "Source system decommissioning dates",
+  "system_deadlines": {
+    "CCS": {
+      "decommission": "2026-12-31",
+      "migration_deadline": "2026-Q3",
+      "affected_domains": ["claims"]
+    },
+    "DC_Policy": {
+      "decommission": "2027-06-30",
+      "migration_deadline": "2027-Q2",
+      "affected_domains": ["policies"]
+    },
+    "Tecnisys": {
+      "decommission": "2028-12-31",
+      "migration_deadline": "2028-Q3",
+      "affected_domains": ["policies"]
+    },
+    "Cogen": {
+      "decommission": "2028-12-31",
+      "migration_deadline": "2028-Q3",
+      "affected_domains": ["policies"]
+    }
+  },
+
+  "_section_domains": "Domain-specific configuration",
+  "domain_constraints": {
+    "entities": {
+      "earliest_start": 0,
+      "priority_weight": 1.0
+    },
+    "claims": {
+      "earliest_start": 3,
+      "priority_weight": 0.95
+    },
+    "policies": {
+      "earliest_start": 6,
+      "priority_weight": 0.9
+    },
+    "finance": {
+      "earliest_start": 12,
+      "priority_weight": 0.8
+    },
+    "operations": {
+      "earliest_start": 18,
+      "priority_weight": 0.7
+    }
+  },
+  "foundational_clusters": {
+    "entities": "Entity_Dimensions",
+    "claims": "Claims_Core",
+    "policies": "Policy_Core"
+  },
+  "domain_business_values": {
+    "entities": 1.0,
+    "claims": 0.95,
+    "policies": 0.9,
+    "finance": 0.8,
+    "operations": 0.7
+  },
+
+  "_section_modes": "Migration approach parameters for SAS-to-Databricks",
+  "mode_parameters": {
+    "build_to_legacy": {
+      "description": "Quick migration replicating SAS output behavior",
+      "duration_multiplier": 1.8,
+      "tech_debt_penalty": 1.5,
+      "base_hours": 438,
+      "cost_multiplier": 1.0,
+      "requires_future_core": false
+    },
+    "bridge_to_model": {
+      "description": "Bridge using existing analytical models (UNO, MAOC, MAE, MAS)",
+      "duration_multiplier": 1.0,
+      "tech_debt_penalty": 1.0,
+      "base_hours": 150,
+      "cost_multiplier": 0.65,
+      "requires_future_core": false,
+      "_note": "Leverages SAS output directly with minimal transformation"
+    },
+    "strategic": {
+      "description": "Full strategic migration to target platform",
+      "duration_multiplier": 1.3,
+      "tech_debt_penalty": 0.0,
+      "base_hours": 438,
+      "cost_multiplier": 1.3,
+      "requires_future_core": true,
+      "_note": "Requires SAS core system replicas available"
+    }
+  },
+
+  "_section_costs": "Role rates for cost projections (EUR)",
+  "role_rates": {
+    "architect": 150,
+    "sr_data_engineer": 120,
+    "data_engineer": 100,
+    "qa_engineer": 95,
+    "business_analyst": 85
+  },
+  "currency": "EUR",
+
+  "_section_resources": "Resource allocation constraints",
+  "concurrent_limits": {
+    "max_strategic_parallel": 2,
+    "max_total_parallel": 4
+  },
+
+  "_section_business_rules": "Ageas-specific business rules",
+  "business_rules": {
+    "domain_rules": {
+      "claims": {
+        "rules": [
+          {"rule_id": "CLM-001", "rule": "Multi-subcluster jobs must transition as atomic units", "rationale": "Ensure data consistency across claims processing"},
+          {"rule_id": "CLM-002", "rule": "NR34/NR35/NR36 regulatory compliance required", "rationale": "Belgian insurance regulatory requirements"},
+          {"rule_id": "CLM-003", "rule": "DC Claims is the future core platform", "rationale": "Qualifies for Strategic approach"},
+          {"rule_id": "CLM-004", "rule": "CCS-dependent clusters must complete by Q3 2026", "rationale": "CCS decommissioning deadline"}
+        ],
+        "structure": {"job_count": 163, "subclusters": 7, "notes": "Atomic unit is the claims processing chain"}
+      },
+      "entities": {
+        "rules": [
+          {"rule_id": "ENT-001", "rule": "No life/non-life split for entities", "rationale": "Unified entity master across all business lines"},
+          {"rule_id": "ENT-002", "rule": "EDM is the future core master", "rationale": "Qualifies for Strategic approach"},
+          {"rule_id": "ENT-003", "rule": "Entity Dimensions is foundational", "rationale": "Must complete before other entity clusters"},
+          {"rule_id": "ENT-004", "rule": "Cross-domain entity references must align", "rationale": "Entities serve Claims and Policies"}
+        ],
+        "structure": {"job_count": 377, "subclusters": 10, "notes": "No business line segmentation"}
+      },
+      "policies": {
+        "rules": [
+          {"rule_id": "POL-001", "rule": "Life/Non-Life split required", "rationale": "Different regulatory and product structures"},
+          {"rule_id": "POL-002", "rule": "Policy Core is foundational", "rationale": "Must complete before product-specific clusters"},
+          {"rule_id": "POL-003", "rule": "Polaris is the future core platform", "rationale": "Qualifies for Strategic approach"},
+          {"rule_id": "POL-004", "rule": "Tecnisys clusters → Q3 2028 deadline", "rationale": "Source system decommissioning"},
+          {"rule_id": "POL-005", "rule": "Cogen clusters → Q3 2028 deadline", "rationale": "Source system decommissioning"}
+        ],
+        "structure": {"job_count": 775, "subclusters": 25, "notes": "Life vs Non-Life segmentation; multiple legacy sources"}
+      }
+    },
+    "regulatory_compliance": {
+      "NR34": {"description": "Belgian insurance regulatory requirement for claims"},
+      "NR35": {"description": "Belgian insurance regulatory requirement for claims"},
+      "NR36": {"description": "Belgian insurance regulatory requirement for claims"}
+    },
+    "analytical_models": {
+      "_note": "Used for Bridge-to-Model approach",
+      "models": ["UNO", "MAOC", "MAE", "MAS"]
+    }
+  },
+
+  "_section_scenarios": "Optimization scenario weights",
+  "scenario_weights": {
+    "fast_exit": {
+      "minimize_duration": 0.6,
+      "maximize_strategic": 0.1,
+      "minimize_tech_debt": 0.3
+    },
+    "balanced": {
+      "minimize_duration": 0.3,
+      "maximize_strategic": 0.4,
+      "minimize_tech_debt": 0.3
+    },
+    "target_first": {
+      "minimize_duration": 0.2,
+      "maximize_strategic": 0.6,
+      "minimize_tech_debt": 0.2
+    }
+  },
+
+  "_section_recommendation": "How to score scenario recommendations",
+  "recommendation_weights": {
+    "duration": 0.35,
+    "tech_debt": 0.25,
+    "strategic_coverage": 0.25,
+    "utilization_deviation": 0.10,
+    "proof_penalty": 0.05
+  }
+}

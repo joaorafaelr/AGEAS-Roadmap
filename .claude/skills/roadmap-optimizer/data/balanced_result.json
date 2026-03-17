@@ -1,0 +1,45 @@
+{
+  "scenario_name": "Balanced",
+  "description": "Balance time, cost, and risk",
+  "total_duration_months": 36,
+  "resource_utilization": 0.75,
+  "risk_score": 0.5,
+  "schedule": [
+    {
+      "package_id": "Package_01",
+      "package_name": "Entities Foundation",
+      "start_month": 0,
+      "duration_months": 1520,
+      "end_month": 1520,
+      "effort_days": 22800,
+      "resources_required": 2
+    },
+    {
+      "package_id": "Package_02",
+      "package_name": "Entities Extensions",
+      "start_month": 1517,
+      "duration_months": 1034,
+      "end_month": 2551,
+      "effort_days": 15520,
+      "resources_required": 2
+    },
+    {
+      "package_id": "Package_03",
+      "package_name": "Policies Migration",
+      "start_month": 2548,
+      "duration_months": 48,
+      "end_month": 2596,
+      "effort_days": 720,
+      "resources_required": 2
+    },
+    {
+      "package_id": "Package_04",
+      "package_name": "Claims Migration",
+      "start_month": 2593,
+      "duration_months": 165,
+      "end_month": 2758,
+      "effort_days": 2480,
+      "resources_required": 2
+    }
+  ]
+}
